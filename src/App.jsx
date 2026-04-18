@@ -117,21 +117,27 @@ function OptionButtons({ question, options, onChoose }) {
 }
 
 export default function App() {
+  const [screen, setScreen] = useState("cover");
   const [pageIndex, setPageIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
 
   const isEnding = pageIndex >= story.pages.length;
   const currentPage = story.pages[pageIndex];
 
+  function scrollToTop() {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 0);
+  }
+
   function handleChoose(tag) {
     const nextAnswers = [...answers, tag];
     setAnswers(nextAnswers);
     setPageIndex((prev) => prev + 1);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    scrollToTop();
   }
 
   const endingText = useMemo(() => {
@@ -152,11 +158,57 @@ export default function App() {
   function handleRestart() {
     setPageIndex(0);
     setAnswers([]);
+    setScreen("story");
+    scrollToTop();
+  }
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  function handleOpenCoverArchive() {
+    setPageIndex(story.pages.length);
+    setAnswers([]);
+    setScreen("story");
+    scrollToTop();
+  }
+
+  if (screen === "cover") {
+    return (
+      <div className="app-shell cover-shell">
+        <main className="cover-page">
+          <div className="cover-inner">
+            <div className="cover-kicker">文艺一点！1</div>
+            <div className="cover-sub">港口夜记 demo ver</div>
+            <h1 className="cover-title">case 1. 借来的舌头</h1>
+
+            <div className="cover-divider" />
+
+            <p className="cover-quote">
+              港口的人说，有三样东西不该沾上别人的气息。<br />
+              可总有人要替别人记下他们说过的话。
+            </p>
+
+            <div className="cover-actions">
+              <button
+                className="cover-btn primary"
+                onClick={() => {
+                  setScreen("story");
+                  setPageIndex(0);
+                  setAnswers([]);
+                  scrollToTop();
+                }}
+              >
+                开始此案
+              </button>
+
+              <button
+                className="cover-btn"
+                onClick={handleOpenCoverArchive}
+              >
+                重读案卷
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
   }
 
   return (
@@ -170,7 +222,7 @@ export default function App() {
         <section className="panel card-panel top-cards">
           <h2>港口的人说，有三样东西不该沾上别人的气息——</h2>
           <div className="card-list horizontal-cards">
-            {story.cards.map((card) => (    
+            {story.cards.map((card) => (
               <div key={card.name} className="symbol-card">
                 <div className="symbol-name">{card.name}</div>
                 <div className="symbol-omen">{card.omen}</div>
@@ -216,9 +268,7 @@ export default function App() {
               <h2>一夜记录已成</h2>
               <div className="result-box final-result">
                 <strong>结语：</strong>
-                <p>
-                  你替这件事定下了名字。名字一落下，人的去路也跟着变了。
-                </p>
+                <p>你替这件事定下了名字。名字一落下，人的去路也跟着变了。</p>
               </div>
               <button className="submit-btn" onClick={handleRestart}>
                 重看此案
