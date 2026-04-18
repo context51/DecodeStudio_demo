@@ -398,10 +398,11 @@ select {
 }
 
 .cover-sub {
-  font-size: 15px;
-  letter-spacing: 0.1em;
-  color: var(--accent-dark);
-  margin-bottom: 12px;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
 }
 
 .cover-title {
@@ -486,4 +487,11 @@ select {
     width: 100%;
     min-width: 0;
   }
+}
+
+.cover-case {
+  margin-top: 12px;
+  font-size: 18px;
+  color: var(--accent-dark);
+  letter-spacing: 0.08em;
 }

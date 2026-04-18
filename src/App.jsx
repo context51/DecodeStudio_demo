@@ -174,9 +174,9 @@ export default function App() {
       <div className="app-shell cover-shell">
         <main className="cover-page">
           <div className="cover-inner">
-            <div className="cover-kicker">文艺一点！1</div>
-            <div className="cover-sub">港口夜记 demo ver</div>
-            <h1 className="cover-title">case 1. 借来的舌头</h1>
+            <div className="cover-sub">demo ver</div>
+            <h1 className="cover-title">港口夜记</h1>
+            <div className="cover-case">case 1. 借来的舌头</div>
 
             <div className="cover-divider" />
 
